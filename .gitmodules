@@ -1,0 +1,9 @@
+[submodule "elisp/external/gist.el"]
+	path = elisp/external/gist.el
+	url = https://github.com/mhayashi1120/gist.el.git
+[submodule "elist/external/org2blog"]
+	path = elist/external/org2blog
+	url = https://github.com/punchagan/org2blog.git
+[submodule "elisp/external/org2blog"]
+	path = elisp/external/org2blog
+	url = https://github.com/punchagan/org2blog.git
