@@ -1,3 +1,7 @@
 secrets.el
 backup/
 url/
+#*
+\#*
+*\#*
+ac-comphist.dat
