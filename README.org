@@ -9,8 +9,12 @@ nice features.
 
 Requires a file, pycheckers, somewhere in your system path, with these lines:
 
-#!/bin/bash
+<<< Replace <shebang> with "#!/bin/bash" >>>
 
-pyflakes "$1"
+<shebang>/bin/bash
+
+pyflakes "$1" 
+
 pep8 --ignore=E221,E701,E202 --repeat "$1"
+
 true
