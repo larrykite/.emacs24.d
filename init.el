@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 01-11-2011 16:33:59 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 03-11-2011 09:49:30 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -12,6 +12,7 @@
 (setq lmk-functions-file "~/.emacs24.d/functions.el")
 (setq backup-directory-alist
       (list (cons "." (expand-file-name "backup" user-emacs-directory))))
+
 
 (global-set-key [(meta x)] (lambda ()
                              (interactive)
@@ -30,6 +31,8 @@
 
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
+(require 'dired-x)
+
 (set-face-font 'default "Envy Code R-13")
 (add-to-list 'default-frame-alist '(alpha . 100))
 
@@ -222,9 +225,11 @@
 (require 'color-theme)
 (require 'color-theme-solarized)
 (require 'color-theme-blackboard)
+(require 'color-theme-sanityinc-solarized)
 (require 'zenburn)
 (eval-after-load "color-theme"
-  '(color-theme-blackboard))
+; '(color-theme-blackboard))
+  '(color-theme-sanityinc-solarized-dark))
 
 
 (require 'semantic/sb)
@@ -234,19 +239,19 @@
 (setq first-time nil)
 (set-frame-height (selected-frame) 52)
 (set-frame-width (selected-frame) 115)
-;(setq py-python-command "/usr/bin/python")
 
+;; Python Configuration
 (require 'ipython)
 (setq py-python-command-args '( "--pylab=qt" "--colors=LightBG"))
 (require 'python-mode)
-
+(global-set-key [C-M-end] 'ipython-complete)
 (require 'pymacs)
 (pymacs-load "ropemacs" "rope-")
 (setq ropemacs-enable-autoimport t)
 
 ;(add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.2")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/vendor/auto-complete-1.2/dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs24.d/elpa/auto-complete-1.4.20110207/dict")
 (ac-config-default)
 
 ;(add-to-list 'load-path "~/.emacs.d/vendor")
@@ -263,8 +268,8 @@
    (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py\\'" flymake-pyflakes-init)))
 (load-library "flymake-cursor")
-(global-set-key [f10] 'flymake-goto-prev-error)
-(global-set-key [f11] 'flymake-goto-next-error)
+;(global-set-key [f10] 'flymake-goto-prev-error)
+;(global-set-key [f11] 'flymake-goto-next-error)
 
 (setq python-check-command "pyflakes")
 
@@ -272,5 +277,27 @@
    "Major mode for editing Markdown files" t)
 (setq auto-mode-alist
    (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+
+(setq pylookup-dir (concat lmk-elisp-external-dir "/pylookup"))
+(add-to-list 'load-path pylookup-dir)
+(eval-when-compile (require 'pylookup))
+(setq pylookup-program (concat pylookup-dir "/pylookup.py"))
+(setq pylookup-db-file (concat pylookup-dir "/pylookup.db"))
+;; to speedup, just load it on demand
+(autoload 'pylookup-lookup "pylookup"
+  "Lookup SEARCH-TERM in the Python HTML indexes." t)
+
+(autoload 'pylookup-update "pylookup"
+  "Run pylookup-update and create the database at `pylookup-db-file'." t)
+
+(global-set-key "\C-ch" 'pylookup-lookup)
+
+(require 'yasnippet-bundle)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/my-snippets/")
+
+
+
 
 (load lmk-functions-file)
