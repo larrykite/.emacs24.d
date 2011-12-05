@@ -144,3 +144,10 @@ print a message in the minibuffer with the result."
 	(forward-word 1)
 	(setq count (1+ count)))
       (message "buffer contains %d words." count))))
+
+(defun win-swap () 
+  "Swap windows using buffer-move.el" 
+  (interactive) 
+  (if (null (windmove-find-other-window 'right)) 
+      (buf-move-left) 
+    (buf-move-right)))

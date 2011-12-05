@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 03-11-2011 09:49:30 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 05-12-2011 12:32:18 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -12,7 +12,6 @@
 (setq lmk-functions-file "~/.emacs24.d/functions.el")
 (setq backup-directory-alist
       (list (cons "." (expand-file-name "backup" user-emacs-directory))))
-
 
 (global-set-key [(meta x)] (lambda ()
                              (interactive)
@@ -28,12 +27,11 @@
                                    (global-set-key [(shift meta x)] 'smex-major-mode-commands)
                                    (smex-major-mode-commands)))
 
-
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
 (require 'dired-x)
 
-(set-face-font 'default "Envy Code R-13")
+;;(set-face-font 'default "Envy Code R-13")
 (add-to-list 'default-frame-alist '(alpha . 100))
 
 ;; M-x shell is a nice shell interface to use, let's make it colorful.  If
@@ -208,8 +206,15 @@
 (global-set-key [C-prior] "\M-<")
 (global-set-key [C-next] "\M->")
 
+;; disable kill-emacs and minimize window if emacs started in daemon mode
+(if (daemonp)
+    (global-unset-key (kbd "C-x C-c")))
+(if (daemonp)
+    (global-unset-key (kbd "C-x C-z")))
+
 ;; Mouse
 (global-set-key [mouse-3] 'imenu)
+
 
 ;; SavePlace- this puts the cursor in the last place you edited
 ;; a particular file. This is very useful for large files.
@@ -221,15 +226,16 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
-                                        ;(require 'regexpl)
-(require 'color-theme)
-(require 'color-theme-solarized)
-(require 'color-theme-blackboard)
-(require 'color-theme-sanityinc-solarized)
-(require 'zenburn)
-(eval-after-load "color-theme"
+(add-to-list 'custom-theme-load-path "~/.emacs24.d/themes/")
+;(require 'color-theme)
+;(require 'color-theme-solarized)
+;(require 'color-theme-blackboard)
+;(require 'color-theme-sanityinc-solarized)
+;(require 'zenburn)
+;(require 'solarized-theme)
+;(eval-after-load "color-theme"
 ; '(color-theme-blackboard))
-  '(color-theme-sanityinc-solarized-dark))
+;  '(color-theme-sanityinc-solarized-dark))
 
 
 (require 'semantic/sb)
@@ -295,9 +301,22 @@
 
 (require 'yasnippet-bundle)
 (yas/initialize)
-(yas/load-directory "~/.emacs.d/my-snippets/")
+(yas/load-directory "~/.emacs.d/snippets/")
 
+(require 'buffer-move)
+(global-set-key (kbd "<C-S-up>")     'buf-move-up)
+(global-set-key (kbd "<C-S-down>")   'buf-move-down)
+(global-set-key (kbd "<C-S-left>")   'buf-move-left)
+(global-set-key (kbd "<C-S-right>")   'buf-move-right)
 
-
-
+(global-set-key (kbd "M-;") 'win-swap)
+(load-theme 'solarized-dark)
 (load lmk-functions-file)
+
+;; ;; ERGOMACS Config
+;; (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "colemak") ; (Ergonomic) Colemak http://colemak.com/
+;; ;; load ErgoEmacs keybinding
+;; (load "~/.emacs24.d/ergoemacs-keybindings-5.3.9/ergoemacs-mode")
+;; ;; turn on minor mode ergoemacs-mode
+;; (ergoemacs-mode nil)
+;; ;; End ERGOMACS Config

@@ -4,7 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(custom-safe-themes (quote ("cf4dda59b259ca9c6214a8e9acf84bf5909c6e59" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" default)))
  '(display-time-mode t)
+ '(flymake-gui-warnings-enabled nil)
  '(font-lock-maximum-decoration t)
  '(global-hl-line-mode t)
  '(global-linum-mode t)
