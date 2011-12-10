@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 09-12-2011 14:29:05 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 09-12-2011 16:40:27 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -268,12 +268,22 @@
 (set-frame-width (selected-frame) 115)
 
 ;; Python Configuration
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
 (require 'ipython)
 (setq py-python-command-args '( "--pylab=qt" "--colors=LightBG"))
 (require 'python-mode)
 (global-set-key [C-M-end] 'ipython-complete)
 (require 'pymacs)
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
 (pymacs-load "ropemacs" "rope-")
+
 (setq ropemacs-enable-autoimport t)
 
 ;(add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.2")
