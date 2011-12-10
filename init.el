@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 05-12-2011 12:32:18 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 09-12-2011 14:29:05 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -20,7 +20,21 @@
                              (global-set-key [(meta x)] 'smex)
                              (smex)))
 
+(global-set-key [(menu)] (lambda ()
+                             (interactive)
+                             (or (boundp 'smex-cache)
+                                 (smex-initialize))
+                             (global-set-key [(meta x)] 'smex)
+                             (smex)))
+
 (global-set-key [(shift meta x)] (lambda ()
+                                   (interactive)
+                                   (or (boundp 'smex-cache)
+                                       (smex-initialize))
+                                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+                                   (smex-major-mode-commands)))
+
+(global-set-key [(shift menu)] (lambda ()
                                    (interactive)
                                    (or (boundp 'smex-cache)
                                        (smex-initialize))
@@ -30,8 +44,12 @@
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
 (require 'dired-x)
+;;(require 'smooth-scrolling)
+(add-to-list 'default-frame-alist '(font . "Inconsolata-10"))
 
-;;(set-face-font 'default "Envy Code R-13")
+;(set-face-font 'default "Inconsolata-10")
+;(set-face-font 'default "Anonymous Pro-10")
+;(set-face-font 'default "Envy Code R-10")
 (add-to-list 'default-frame-alist '(alpha . 100))
 
 ;; M-x shell is a nice shell interface to use, let's make it colorful.  If
@@ -138,7 +156,7 @@
 (global-auto-revert-mode 1)
                                         ;(toggle-diredp-find-file-reuse-dir 1)
 (setq compile-command "make")
-
+(setq redisplay-dont-pause t)
 
 ;; Keyboard
 ;; ============
@@ -205,7 +223,10 @@
 (global-set-key [C-end] "\M->")
 (global-set-key [C-prior] "\M-<")
 (global-set-key [C-next] "\M->")
-
+(global-set-key "\M-u" 'previous-line)
+(global-set-key "\M-e" 'next-line)
+(global-set-key "\M-n" 'backward-char)
+(global-set-key "\M-i" 'forward-char)
 ;; disable kill-emacs and minimize window if emacs started in daemon mode
 (if (daemonp)
     (global-unset-key (kbd "C-x C-c")))

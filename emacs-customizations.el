@@ -27,6 +27,8 @@
  '(mouse-wheel-scroll-amount (quote (3 ((shift) . 1) ((control)))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("tromey" . "http://tromey.com/elpa/"))))
  '(scroll-bar-mode nil)
+ '(scroll-conservatively 10000)
+ '(scroll-margin 1)
  '(scroll-step 1)
  '(semantic-decoration-styles (quote (("semantic-decoration-on-includes" . t) ("semantic-decoration-on-protected-members") ("semantic-decoration-on-private-members") ("semantic-tag-boundary" . t))))
  '(semantic-mode t)
