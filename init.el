@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 09-12-2011 16:40:27 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 14-12-2011 16:31:32 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -43,7 +43,8 @@
 
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
-(require 'dired-x)
+
+
 ;;(require 'smooth-scrolling)
 (add-to-list 'default-frame-alist '(font . "Inconsolata-10"))
 
@@ -79,23 +80,6 @@
 (global-set-key (kbd "C-x B") 'ibuffer)
 
 ;; full screen
-(defun fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen
-		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-
-(defun unix-file ()
-  "Change the current buffer to Latin 1 with Unix line-ends."
-  (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-unix t))
-(defun dos-file ()
-  "Change the current buffer to Latin 1 with DOS line-ends."
-  (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-dos t))
-(defun mac-file ()
-  "Change the current buffer to Latin 1 with Mac line-ends."
-  (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-mac t))
 
 
 (require 'package)
@@ -118,6 +102,8 @@
                                         ; It seems I need to do this first to make package loading work
 (package-initialize) 
 
+(require 'dired-x)
+(require 'dired+)
 (require 'netrc)
 (require 'org2blog)
 
@@ -227,6 +213,9 @@
 (global-set-key "\M-e" 'next-line)
 (global-set-key "\M-n" 'backward-char)
 (global-set-key "\M-i" 'forward-char)
+(global-set-key "\C-ct" 'toggle-tool-bar-mode-from-frame)
+(global-set-key "\C-cm" 'toggle-menu-bar-mode-from-frame)
+
 ;; disable kill-emacs and minimize window if emacs started in daemon mode
 (if (daemonp)
     (global-unset-key (kbd "C-x C-c")))
