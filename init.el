@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 14-12-2011 16:39:18 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 14-12-2011 17:16:01 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -172,25 +172,25 @@
 (global-set-key "\M-h" 'help-command)
 
 ;; Function keys
-(global-set-key [f1] 'manual-entry)
-(global-set-key [f2] 'info)
-(global-set-key [f3] 'repeat-complex-command)
-(global-set-key [f4] 'advertised-undo)
-(global-set-key [f5] 'eval-current-buffer)
-(global-set-key [f6] 'buffer-menu)
-(global-set-key [f7] 'other-window)
-(global-set-key [f8] 'find-file)
-(global-set-key [f9] 'save-buffer)
-(global-set-key [f10] 'next-error)
+;; (global-set-key [f1] 'manual-entry)
+;; (global-set-key [f2] 'info)
+;; (global-set-key [f3] 'repeat-complex-command)
+;; (global-set-key [f4] 'advertised-undo)
+;; ;(global-set-key [f5] 'eval-current-buffer)
+;; (global-set-key [f6] 'buffer-menu)
+;; (global-set-key [f7] 'other-window)
+;; (global-set-key [f8] 'find-file)
+;; (global-set-key [f9] 'save-buffer)
+;; (global-set-key [f10] 'next-error)
 (global-set-key [f11] 'fullscreen)
-(global-set-key [f12] 'grep)
-(global-set-key [C-f1] 'compile)
-(global-set-key [C-f2] 'grep)
-(global-set-key [C-f3] 'next-error)
-(global-set-key [C-f4] 'previous-error)
-(global-set-key [C-f5] 'display-faces)
-(global-set-key [C-f8] 'dired)
-(global-set-key [C-f10] 'kill-compilation)
+;; (global-set-key [f12] 'grep)
+;; (global-set-key [C-f1] 'compile)
+;; (global-set-key [C-f2] 'grep)
+;; (global-set-key [C-f3] 'next-error)
+;; (global-set-key [C-f4] 'previous-error)
+;; (global-set-key [C-f5] 'display-faces)
+;; (global-set-key [C-f8] 'dired)
+;; (global-set-key [C-f10] 'kill-compilation)
 
 ;; Keypad bindings
 (global-set-key [up] "\C-p")
@@ -215,7 +215,7 @@
 (global-set-key "\M-i" 'forward-char)
 (global-set-key "\C-ct" 'toggle-tool-bar-mode-from-frame)
 (global-set-key "\C-cm" 'toggle-menu-bar-mode-from-frame)
-
+(global-set-key "\C-ca" 'anything)
 ;; disable kill-emacs and minimize window if emacs started in daemon mode
 (if (daemonp)
     (global-unset-key (kbd "C-x C-c")))
