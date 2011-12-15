@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 14-12-2011 16:31:32 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 14-12-2011 16:39:18 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -46,7 +46,7 @@
 
 
 ;;(require 'smooth-scrolling)
-(add-to-list 'default-frame-alist '(font . "Inconsolata-10"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-11"))
 
 ;(set-face-font 'default "Inconsolata-10")
 ;(set-face-font 'default "Anonymous Pro-10")
