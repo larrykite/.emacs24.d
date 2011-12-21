@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 14-12-2011 17:16:01 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 19-12-2011 16:47:19 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -88,6 +88,10 @@
 (dolist (project (directory-files lmk-elisp-external-dir t "\\w+"))
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
+
+(require 'actionscript-mode)
+(eval-after-load     "actionscript-mode" '(load "actionscript-config"))
+(add-to-list 'auto-mode-alist '("\\.as\\'" . actionscript-mode))
 
 (require 'gist)
 (setq gist-authenticate-function 'gist-basic-authentication)
@@ -328,9 +332,27 @@
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")   'buf-move-right)
+(global-set-key "\M-N" 'backward-kill-word)
+(global-set-key "\M-I" 'kill-word)
+(global-set-key "\M-U" 'kill-start-of-line)
+(global-set-key "\M-E" 'kill-line)
+   (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
 
 (global-set-key (kbd "M-;") 'win-swap)
 (load-theme 'solarized-dark)
+
+(setq inferior-lisp-program "/usr/bin/sbcl") ; your Lisp system
+     (add-to-list 'load-path "~/projects/slime/")  ; your SLIME directory
+     (require 'slime)
+     (slime-setup)
+
+
+(defun kill-start-of-line ()
+  "Kill characters from point to beginning of line"
+  (interactive)
+  (kill-line 0))
+
 (load lmk-functions-file)
 
 ;; ;; ERGOMACS Config

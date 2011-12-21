@@ -169,3 +169,4 @@ print a message in the minibuffer with the result."
   "Change the current buffer to Latin 1 with Mac line-ends."
   (interactive)
   (set-buffer-file-coding-system 'iso-latin-1-mac t))
+

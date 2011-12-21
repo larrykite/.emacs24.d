@@ -7,3 +7,9 @@
 [submodule "elisp/external/org2blog"]
 	path = elisp/external/org2blog
 	url = https://github.com/punchagan/org2blog.git
+[submodule "elisp/external/solarized-emacs"]
+        path = elisp/external/solarized-emacs
+        url = https://github.com/bbatsov/solarized-emacs.git
+[submodule "elisp/external/zenburn-emacs"]
+        path = elisp/external/zenburn-emacs
+        url = https://github.com/bbatsov/zenburn-emacs.git
