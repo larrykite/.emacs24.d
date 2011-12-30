@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 19-12-2011 16:47:19 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 29-12-2011 15:51:26 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -258,7 +258,7 @@
 ;; Indicate that this file has been read at least once
 (setq first-time nil)
 (set-frame-height (selected-frame) 52)
-(set-frame-width (selected-frame) 115)
+(set-frame-width (selected-frame) 130)
 
 ;; Python Configuration
 (autoload 'python-mode "python-mode" "Python Mode." t)
