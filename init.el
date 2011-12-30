@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 29-12-2011 15:51:26 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 30-12-2011 15:31:23 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -56,8 +56,8 @@
 ;; M-x shell is a nice shell interface to use, let's make it colorful.  If
 ;; you need a terminal emulator rather than just a shell, consider M-x term
 ;; instead.
-;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; If you do use M-x term, you will notice there's line mode that acts like
 ;; emacs buffers, and there's the default char mode that will send your
@@ -78,6 +78,50 @@
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C") 'ibuffer)
 (global-set-key (kbd "C-x B") 'ibuffer)
+(global-set-key (kbd "C-x b")
+                (lambda() (interactive)
+                  (anything
+                   :prompt "Switch to: "
+                   :candidate-number-limit 10                 ;; up to 10 of each 
+                   :sources
+                   '( anything-c-source-buffers               ;; buffers 
+                      anything-c-source-recentf               ;; recent files 
+                      anything-c-source-bookmarks             ;; bookmarks
+                      anything-c-source-files-in-current-dir+ ;; current dir
+                      anything-c-source-locate))))            ;; use 'locate'
+
+(global-set-key (kbd "C-c I")  ;; i -> info
+  (lambda () (interactive)
+    (anything
+      :prompt "Info about: "
+      :candidate-number-limit 10
+      :sources
+      '( anything-c-source-man-pages            ;; man pages
+         anything-c-source-info-pages             ;; info pages
+         anything-c-source-info-zsh  ))))
+
+(add-hook 'emacs-lisp-mode-hook
+  (lambda()
+  ;; other stuff...
+  ;; ...
+  ;; put useful info under C-c i
+    (local-set-key (kbd "C-c i")
+      (lambda() (interactive)
+        (anything
+          :prompt "Info about: "
+          :candidate-number-limit 5
+          :sources
+          '( anything-c-source-emacs-functions
+             anything-c-source-emacs-variables
+             anything-c-source-info-elisp
+             anything-c-source-emacs-commands
+             anything-c-source-emacs-source-defun
+             anything-c-source-emacs-lisp-expectations
+             anything-c-source-emacs-lisp-toplevels
+             anything-c-source-emacs-functions-with-abbrevs
+             anything-c-source-info-emacs))))
+
+
 
 ;; full screen
 
@@ -89,9 +133,9 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
-(require 'actionscript-mode)
-(eval-after-load     "actionscript-mode" '(load "actionscript-config"))
-(add-to-list 'auto-mode-alist '("\\.as\\'" . actionscript-mode))
+;; (require 'actionscript-mode)
+;; (eval-after-load     "actionscript-mode" '(load "actionscript-config"))
+;; (add-to-list 'auto-mode-alist '("\\.as\\'" . actionscript-mode))
 
 (require 'gist)
 (setq gist-authenticate-function 'gist-basic-authentication)
