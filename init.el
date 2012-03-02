@@ -6,8 +6,8 @@
 (setq lmk-elisp-dir (expand-file-name "elisp" lmk-emacs-config-dir))
 (setq lmk-elisp-external-dir
       (expand-file-name "external" lmk-elisp-dir))
-;(setq lmk-init-dir
-;      (expand-file-name "init.d" lmk-emacs-config-dir))
+					;(setq lmk-init-dir
+					;      (expand-file-name "init.d" lmk-emacs-config-dir))
 (setq lmk-secrets-file "~/.emacs24.d/lmksecrets.el")
 (setq lmk-functions-file "~/.emacs24.d/functions.el")
 (setq backup-directory-alist
@@ -21,11 +21,11 @@
                              (smex)))
 
 (global-set-key [(menu)] (lambda ()
-                             (interactive)
-                             (or (boundp 'smex-cache)
-                                 (smex-initialize))
-                             (global-set-key [(meta x)] 'smex)
-                             (smex)))
+			   (interactive)
+			   (or (boundp 'smex-cache)
+			       (smex-initialize))
+			   (global-set-key [(meta x)] 'smex)
+			   (smex)))
 
 (global-set-key [(shift meta x)] (lambda ()
                                    (interactive)
@@ -35,11 +35,11 @@
                                    (smex-major-mode-commands)))
 
 (global-set-key [(shift menu)] (lambda ()
-                                   (interactive)
-                                   (or (boundp 'smex-cache)
-                                       (smex-initialize))
-                                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
-                                   (smex-major-mode-commands)))
+				 (interactive)
+				 (or (boundp 'smex-cache)
+				     (smex-initialize))
+				 (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+				 (smex-major-mode-commands)))
 
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
@@ -48,9 +48,9 @@
 ;;(require 'smooth-scrolling)
 (add-to-list 'default-frame-alist '(font . "Inconsolata-11"))
 
-;(set-face-font 'default "Inconsolata-10")
-;(set-face-font 'default "Anonymous Pro-10")
-;(set-face-font 'default "Envy Code R-10")
+					;(set-face-font 'default "Inconsolata-10")
+					;(set-face-font 'default "Anonymous Pro-10")
+					;(set-face-font 'default "Envy Code R-10")
 (add-to-list 'default-frame-alist '(alpha . 100))
 
 ;; M-x shell is a nice shell interface to use, let's make it colorful.  If
@@ -91,36 +91,36 @@
                       anything-c-source-locate))))            ;; use 'locate'
 
 (global-set-key (kbd "C-c I")  ;; i -> info
-  (lambda () (interactive)
-    (anything
-      :prompt "Info about: "
-      :candidate-number-limit 10
-      :sources
-      '( anything-c-source-man-pages            ;; man pages
-         anything-c-source-info-pages             ;; info pages
-         anything-c-source-info-zsh  ))))
+		(lambda () (interactive)
+		  (anything
+		   :prompt "Info about: "
+		   :candidate-number-limit 10
+		   :sources
+		   '( anything-c-source-man-pages            ;; man pages
+		      anything-c-source-info-pages             ;; info pages
+		      anything-c-source-info-zsh  ))))
 
 (add-hook 'emacs-lisp-mode-hook
-  (lambda()
-  ;; other stuff...
-  ;; ...
-  ;; put useful info under C-c i
-    (local-set-key (kbd "C-c i")
-      (lambda() (interactive)
-        (anything
-          :prompt "Info about: "
-          :candidate-number-limit 5
-          :sources
-          '( anything-c-source-emacs-functions
-             anything-c-source-emacs-variables
-             anything-c-source-info-elisp
-             anything-c-source-emacs-commands
-             anything-c-source-emacs-source-defun
-             anything-c-source-emacs-lisp-expectations
-             anything-c-source-emacs-lisp-toplevels
-             anything-c-source-emacs-functions-with-abbrevs
-             anything-c-source-info-emacs))))
-
+	  (lambda()
+	    ;; other stuff...
+	    ;; ...
+	    ;; put useful info under C-c i
+	    (local-set-key (kbd "C-c i")
+			   (lambda() (interactive)
+			     (anything
+			      :prompt "Info about: "
+			      :candidate-number-limit 5
+			      :sources
+			      '( anything-c-source-emacs-functions
+				 anything-c-source-emacs-variables
+				 anything-c-source-info-elisp
+				 anything-c-source-emacs-commands
+				 anything-c-source-emacs-source-defun
+				 anything-c-source-emacs-lisp-expectations
+				 anything-c-source-emacs-lisp-toplevels
+				 anything-c-source-emacs-functions-with-abbrevs
+				 anything-c-source-info-emacs))))))
+	    
 
 
 ;; full screen

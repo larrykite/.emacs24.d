@@ -3,8 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-install-from-dired-confirm nil)
+ '(auto-install-save-confirm nil)
  '(column-number-mode t)
- '(custom-safe-themes (quote ("cf4dda59b259ca9c6214a8e9acf84bf5909c6e59" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" default)))
+ '(custom-safe-themes (quote ("d90f6a39ef514f1029460fa86ed621d0a5328c697e3aebfa4618b6a99da2372e" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "cf4dda59b259ca9c6214a8e9acf84bf5909c6e59" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" default)))
  '(display-time-mode t)
  '(flymake-gui-warnings-enabled nil)
  '(font-lock-maximum-decoration t)
@@ -24,7 +26,8 @@
  '(menu-bar-mode nil)
  '(mouse-wheel-mode t)
  '(mouse-wheel-progressive-speed nil)
- '(mouse-wheel-scroll-amount (quote (3 ((shift) . 1) ((control)))))
+ '(mouse-wheel-scroll-amount (quote (0.1 ((shift) . 1) ((control)))))
+ '(mouse-yank-at-point t)
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("tromey" . "http://tromey.com/elpa/"))))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 10000)
@@ -32,6 +35,7 @@
  '(scroll-step 1)
  '(semantic-decoration-styles (quote (("semantic-decoration-on-includes" . t) ("semantic-decoration-on-protected-members") ("semantic-decoration-on-private-members") ("semantic-tag-boundary" . t))))
  '(semantic-mode t)
+ '(semantic-sb-info-format-tag-function (quote semantic-format-tag-concise-prototype))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(winner-mode t nil (winner))
@@ -41,4 +45,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))) t)
+ '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))) t)
+ '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))) t)
+ '(diff-file-header ((((background dark)) (:foreground "Cyan" :background "Black")) (t (:foreground "Red" :background "White"))) t)
+ '(diff-header ((((background dark)) (:foreground "Cyan")) (t (:foreground "Red"))) t)
+ '(diff-hunk-header ((((background dark)) (:foreground "Black" :background "#05057F7F8D8D")) (t (:foreground "White" :background "Salmon"))) t)
+ '(diff-index ((((background dark)) (:foreground "Magenta")) (t (:foreground "Green"))) t)
+ '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))) t)
+ '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))) t))

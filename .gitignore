@@ -9,3 +9,7 @@ eproject.lst
 eshell/
 auto-save-list/
 session*
+*.elc
+.ropeproject/
+bookmarks
+history
