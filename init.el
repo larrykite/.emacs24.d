@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 30-12-2011 15:31:23 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 02-03-2012 10:28:05 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -6,8 +6,7 @@
 (setq lmk-elisp-dir (expand-file-name "elisp" lmk-emacs-config-dir))
 (setq lmk-elisp-external-dir
       (expand-file-name "external" lmk-elisp-dir))
-					;(setq lmk-init-dir
-					;      (expand-file-name "init.d" lmk-emacs-config-dir))
+
 (setq lmk-secrets-file "~/.emacs24.d/lmksecrets.el")
 (setq lmk-functions-file "~/.emacs24.d/functions.el")
 (setq backup-directory-alist
@@ -45,9 +44,7 @@
 (require 'electric)
 
 
-;;(require 'smooth-scrolling)
 (add-to-list 'default-frame-alist '(font . "Inconsolata-11"))
-
 					;(set-face-font 'default "Inconsolata-10")
 					;(set-face-font 'default "Anonymous Pro-10")
 					;(set-face-font 'default "Envy Code R-10")
@@ -74,56 +71,9 @@
 ;; Well the real default would be C-c C-j C-y C-c C-k.
 (define-key term-raw-map  (kbd "C-y") 'term-paste)
 
-
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C") 'ibuffer)
 (global-set-key (kbd "C-x B") 'ibuffer)
-(global-set-key (kbd "C-x b")
-                (lambda() (interactive)
-                  (anything
-                   :prompt "Switch to: "
-                   :candidate-number-limit 10                 ;; up to 10 of each 
-                   :sources
-                   '( anything-c-source-buffers               ;; buffers 
-                      anything-c-source-recentf               ;; recent files 
-                      anything-c-source-bookmarks             ;; bookmarks
-                      anything-c-source-files-in-current-dir+ ;; current dir
-                      anything-c-source-locate))))            ;; use 'locate'
-
-(global-set-key (kbd "C-c I")  ;; i -> info
-		(lambda () (interactive)
-		  (anything
-		   :prompt "Info about: "
-		   :candidate-number-limit 10
-		   :sources
-		   '( anything-c-source-man-pages            ;; man pages
-		      anything-c-source-info-pages             ;; info pages
-		      anything-c-source-info-zsh  ))))
-
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda()
-	    ;; other stuff...
-	    ;; ...
-	    ;; put useful info under C-c i
-	    (local-set-key (kbd "C-c i")
-			   (lambda() (interactive)
-			     (anything
-			      :prompt "Info about: "
-			      :candidate-number-limit 5
-			      :sources
-			      '( anything-c-source-emacs-functions
-				 anything-c-source-emacs-variables
-				 anything-c-source-info-elisp
-				 anything-c-source-emacs-commands
-				 anything-c-source-emacs-source-defun
-				 anything-c-source-emacs-lisp-expectations
-				 anything-c-source-emacs-lisp-toplevels
-				 anything-c-source-emacs-functions-with-abbrevs
-				 anything-c-source-info-emacs))))))
-	    
-
-
-;; full screen
 
 
 (require 'package)
@@ -220,25 +170,25 @@
 (global-set-key "\M-h" 'help-command)
 
 ;; Function keys
-;; (global-set-key [f1] 'manual-entry)
-;; (global-set-key [f2] 'info)
-;; (global-set-key [f3] 'repeat-complex-command)
-;; (global-set-key [f4] 'advertised-undo)
-;; ;(global-set-key [f5] 'eval-current-buffer)
-;; (global-set-key [f6] 'buffer-menu)
-;; (global-set-key [f7] 'other-window)
-;; (global-set-key [f8] 'find-file)
-;; (global-set-key [f9] 'save-buffer)
-;; (global-set-key [f10] 'next-error)
+(global-set-key [f1] 'manual-entry)
+(global-set-key [f2] 'info)
+(global-set-key [f3] 'repeat-complex-command)
+(global-set-key [f4] 'advertised-undo)
+(global-set-key [f5] 'eval-current-buffer)
+(global-set-key [f6] 'buffer-menu)
+(global-set-key [f7] 'other-window)
+(global-set-key [f8] 'find-file)
+(global-set-key [f9] 'save-buffer)
+(global-set-key [f10] 'next-error)
 (global-set-key [f11] 'fullscreen)
-;; (global-set-key [f12] 'grep)
-;; (global-set-key [C-f1] 'compile)
-;; (global-set-key [C-f2] 'grep)
-;; (global-set-key [C-f3] 'next-error)
-;; (global-set-key [C-f4] 'previous-error)
-;; (global-set-key [C-f5] 'display-faces)
-;; (global-set-key [C-f8] 'dired)
-;; (global-set-key [C-f10] 'kill-compilation)
+(global-set-key [f12] 'grep)
+(global-set-key [C-f1] 'compile)
+(global-set-key [C-f2] 'grep)
+(global-set-key [C-f3] 'next-error)
+(global-set-key [C-f4] 'previous-error)
+(global-set-key [C-f5] 'display-faces)
+(global-set-key [C-f8] 'dired)
+(global-set-key [C-f10] 'kill-compilation)
 
 ;; Keypad bindings
 (global-set-key [up] "\C-p")
@@ -261,6 +211,10 @@
 (global-set-key "\M-e" 'next-line)
 (global-set-key "\M-n" 'backward-char)
 (global-set-key "\M-i" 'forward-char)
+(global-set-key "\M-N" 'backward-kill-word)
+(global-set-key "\M-I" 'kill-word)
+(global-set-key "\M-U" 'kill-start-of-line)
+(global-set-key "\M-E" 'kill-line)
 (global-set-key "\C-ct" 'toggle-tool-bar-mode-from-frame)
 (global-set-key "\C-cm" 'toggle-menu-bar-mode-from-frame)
 (global-set-key "\C-ca" 'anything)
@@ -285,16 +239,6 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 (add-to-list 'custom-theme-load-path "~/.emacs24.d/themes/")
-;(require 'color-theme)
-;(require 'color-theme-solarized)
-;(require 'color-theme-blackboard)
-;(require 'color-theme-sanityinc-solarized)
-;(require 'zenburn)
-;(require 'solarized-theme)
-;(eval-after-load "color-theme"
-; '(color-theme-blackboard))
-;  '(color-theme-sanityinc-solarized-dark))
-
 
 (require 'semantic/sb)
 (semantic-mode 1)
@@ -323,12 +267,9 @@
 
 (setq ropemacs-enable-autoimport t)
 
-;(add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.2")
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs24.d/elpa/auto-complete-1.4.20110207/dict")
 (ac-config-default)
-
-;(add-to-list 'load-path "~/.emacs.d/vendor")
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (when (load "flymake" t)
@@ -342,8 +283,6 @@
    (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py\\'" flymake-pyflakes-init)))
 (load-library "flymake-cursor")
-;(global-set-key [f10] 'flymake-goto-prev-error)
-;(global-set-key [f11] 'flymake-goto-next-error)
 
 (setq python-check-command "pyflakes")
 
@@ -376,20 +315,17 @@
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")   'buf-move-right)
-(global-set-key "\M-N" 'backward-kill-word)
-(global-set-key "\M-I" 'kill-word)
-(global-set-key "\M-U" 'kill-start-of-line)
-(global-set-key "\M-E" 'kill-line)
-   (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-
-
+(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 (global-set-key (kbd "M-;") 'win-swap)
-(load-theme 'solarized-dark)
 
-(setq inferior-lisp-program "/usr/bin/sbcl") ; your Lisp system
-     (add-to-list 'load-path "~/projects/slime/")  ; your SLIME directory
-     (require 'slime)
-     (slime-setup)
+;(load-theme 'solarized-dark)
+(load-theme 'zenburn)
+(set-language-environment "utf-8")
+(setq inferior-lisp-program "/usr/local/bin/ccl") ; your Lisp system
+(add-to-list 'load-path "~/projects/slime/")  ; your SLIME directory
+(require 'slime)
+(setq slime-net-coding-system 'utf-8-unix)
+(slime-setup '(slime-fancy))
 
 
 (defun kill-start-of-line ()
