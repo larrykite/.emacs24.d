@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 02-03-2012 10:28:05 by Larry Kite, larrykite>
+;; Time-stamp: <Last changed 02-04-2012 13:42:34 by Larry Kite, larrykite>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -92,12 +92,11 @@
 (when (file-exists-p lmk-secrets-file)
   (load lmk-secrets-file))
 (global-set-key (kbd "<f8>") 'gist-region-or-buffer)
-;; set up 'custom' system
 
+;; set up 'custom' system
 (setq custom-file (expand-file-name "emacs-customizations.el" lmk-emacs-config-dir))
 (load custom-file)
 
-                                        ; It seems I need to do this first to make package loading work
 (package-initialize) 
 
 (require 'dired-x)
@@ -107,9 +106,11 @@
 
 (require 'switch-window)
 (require 'auto-complete)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs24.d/elpa/auto-complete-1.4.20110207/dict")
+(ac-config-default)
+(global-auto-complete-mode t)
 
-                                        ;(setq lmk-netrc-vc
-                                        ;      (netrc-machine (netrc-parse "~/.netrc") "ubuntu" t))
 (setq org2blog/wp-blog-alist
       '(("wordpress"
          :url "http://lawrencekite.com/xmlrpc.php"
@@ -267,9 +268,6 @@
 
 (setq ropemacs-enable-autoimport t)
 
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs24.d/elpa/auto-complete-1.4.20110207/dict")
-(ac-config-default)
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (when (load "flymake" t)
@@ -323,15 +321,63 @@
 (set-language-environment "utf-8")
 (setq inferior-lisp-program "/usr/local/bin/ccl") ; your Lisp system
 (add-to-list 'load-path "~/projects/slime/")  ; your SLIME directory
+
 (require 'slime)
 (setq slime-net-coding-system 'utf-8-unix)
 (slime-setup '(slime-fancy))
 
+(add-hook 'before-save-hook 'time-stamp)
+(setq time-stamp-pattern nil)
 
 (defun kill-start-of-line ()
   "Kill characters from point to beginning of line"
   (interactive)
   (kill-line 0))
+
+; from http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+
+(defun exchange-point-and-mark-no-activate ()
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+; end from http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
+
+(defconst pcmpl-git-commands
+  '("add" "bisect" "branch" "checkout" "clone"
+    "commit" "diff" "fetch" "grep"
+    "init" "log" "merge" "mv" "pull" "push" "rebase"
+    "reset" "rm" "show" "status" "tag" )
+  "List of `git' commands")
+
+(defun pcomplete/git ()
+  "Completion for `git'"
+  (pcomplete-here* pcmpl-git-commands))
+
+(defun pcomplete/git ()
+  "Completion for `git'"
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-git-commands)
+ 
+  ;; complete files/dirs forever if the command is `add' or `rm'.
+  (if (pcomplete-match (regexp-opt '("add" "rm")) 1)
+      (while (pcomplete-here (pcomplete-entries)))))
+
+(global-set-key (kbd "C-`") 'push-mark-no-activate)
+(global-set-key (kbd "M-`") 'jump-to-mark)
 
 (load lmk-functions-file)
 
