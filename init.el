@@ -1,4 +1,4 @@
-;; Time-stamp: <Last changed 02-04-2012 13:42:34 by Larry Kite, larrykite>
+;; Time-stamp: <2012-04-05 11:54:36 (larrykite)>
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -20,34 +20,36 @@
                              (smex)))
 
 (global-set-key [(menu)] (lambda ()
-			   (interactive)
-			   (or (boundp 'smex-cache)
-			       (smex-initialize))
-			   (global-set-key [(meta x)] 'smex)
-			   (smex)))
+                           (interactive)
+                           (or (boundp 'smex-cache)
+                               (smex-initialize))
+                           (global-set-key [(meta x)] 'smex)
+                           (smex)))
 
 (global-set-key [(shift meta x)] (lambda ()
                                    (interactive)
                                    (or (boundp 'smex-cache)
                                        (smex-initialize))
-                                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+                                   (global-set-key [(shift meta x)]
+                                                   'smex-major-mode-commands)
                                    (smex-major-mode-commands)))
 
 (global-set-key [(shift menu)] (lambda ()
-				 (interactive)
-				 (or (boundp 'smex-cache)
-				     (smex-initialize))
-				 (global-set-key [(shift meta x)] 'smex-major-mode-commands)
-				 (smex-major-mode-commands)))
+                                 (interactive)
+                                 (or (boundp 'smex-cache)
+                                     (smex-initialize))
+                                 (global-set-key [(shift meta x)]
+                                                 'smex-major-mode-commands)
+                                 (smex-major-mode-commands)))
 
 (require 'cl)				; common lisp goodies, loop
 (require 'electric)
 
 
 (add-to-list 'default-frame-alist '(font . "Inconsolata-11"))
-					;(set-face-font 'default "Inconsolata-10")
-					;(set-face-font 'default "Anonymous Pro-10")
-					;(set-face-font 'default "Envy Code R-10")
+;(set-face-font 'default "Inconsolata-10")
+;(set-face-font 'default "Anonymous Pro-10")
+;(set-face-font 'default "Envy Code R-10")
 (add-to-list 'default-frame-alist '(alpha . 100))
 
 ;; M-x shell is a nice shell interface to use, let's make it colorful.  If
@@ -97,7 +99,7 @@
 (setq custom-file (expand-file-name "emacs-customizations.el" lmk-emacs-config-dir))
 (load custom-file)
 
-(package-initialize) 
+(package-initialize)
 
 (require 'dired-x)
 (require 'dired+)
@@ -363,18 +365,41 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     "reset" "rm" "show" "status" "tag" )
   "List of `git' commands")
 
-(defun pcomplete/git ()
-  "Completion for `git'"
-  (pcomplete-here* pcmpl-git-commands))
+(defvar pcmpl-git-ref-list-cmd "git for-each-ref refs/ --format='%(refname)'"
+  "The `git' command to run to get a list of refs")
+
+(defun pcmpl-git-get-refs (type)
+  "Return a list of `git' refs filtered by TYPE"
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (let ((ref-list))
+      (while (re-search-forward (concat "^refs/" type "/\\(.+\\)$") nil t)
+        (add-to-list 'ref-list (match-string 1)))
+      ref-list)))
 
 (defun pcomplete/git ()
   "Completion for `git'"
   ;; Completion for the command argument.
   (pcomplete-here* pcmpl-git-commands)
- 
-  ;; complete files/dirs forever if the command is `add' or `rm'.
-  (if (pcomplete-match (regexp-opt '("add" "rm")) 1)
-      (while (pcomplete-here (pcomplete-entries)))))
+  ;; complete files/dirs forever if the command is `add' or `rm'
+  (cond
+   ((pcomplete-match (regexp-opt '("add" "rm")) 1)
+    (while (pcomplete-here (pcomplete-entries))))
+   ;; provide branch completion for the command `checkout'.
+   ((pcomplete-match "checkout" 1)
+    (pcomplete-here* (pcmpl-git-get-refs "heads")))))
+
+
+
+;; Turn on outline minor mode
+(add-hook 'emacs-lisp-mode-hook  'outline-minor-mode)
+
+;; Add key bindings for Org-style outline cycling
+(add-hook 'outline-minor-mode-hook
+  (lambda ()
+    (define-key outline-minor-mode-map [(control tab)] 'org-cycle)
+    (define-key outline-minor-mode-map [(shift tab)] 'org-global-cycle)))
 
 (global-set-key (kbd "C-`") 'push-mark-no-activate)
 (global-set-key (kbd "M-`") 'jump-to-mark)
