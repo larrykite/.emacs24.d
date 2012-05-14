@@ -1,4 +1,4 @@
-;; Time-stamp: <2012-04-05 11:54:36 (larrykite)>
+
 (setq lmk-emacs-init-file load-file-name)
 (setq lmk-emacs-config-dir
       (file-name-directory lmk-emacs-init-file))
@@ -88,6 +88,8 @@
 ;; (require 'actionscript-mode)
 ;; (eval-after-load     "actionscript-mode" '(load "actionscript-config"))
 ;; (add-to-list 'auto-mode-alist '("\\.as\\'" . actionscript-mode))
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 (require 'gist)
 (setq gist-authenticate-function 'gist-basic-authentication)
@@ -306,9 +308,8 @@
 
 (global-set-key "\C-ch" 'pylookup-lookup)
 
-(require 'yasnippet-bundle)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/snippets/")
+(require 'yasnippet)
+(yas/global-mode 1)
 
 (require 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
